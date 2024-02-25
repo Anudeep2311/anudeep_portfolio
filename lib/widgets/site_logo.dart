@@ -10,8 +10,8 @@ class SiteLogo extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: const CircleAvatar(
+        backgroundImage: AssetImage('assets/annadon.jpg'),
         backgroundColor: AppColors.primaryColor,
-        child: Icon(Icons.person),
       ),
     );
   }

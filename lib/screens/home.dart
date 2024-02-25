@@ -1,11 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_portfolio/common/size.dart';
 import 'package:flutter_portfolio/common/theme.dart';
 import 'package:flutter_portfolio/widgets/header_desktop.dart';
 import 'package:flutter_portfolio/widgets/header_mobile.dart';
+import 'package:flutter_portfolio/widgets/main_mobile.dart';
+import 'package:flutter_portfolio/widgets/maindesktop.dart';
+
 import 'package:flutter_portfolio/widgets/mobile_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,8 +20,8 @@ class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final screenWidth = screenSize.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         key: scaffoldKey,
@@ -37,40 +38,10 @@ class _HomePageState extends State<HomePage> {
                   onMenuTap: () {
                     scaffoldKey.currentState?.openEndDrawer();
                   }),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              height: screenSize.height / 1.2,
-              constraints: const BoxConstraints(minHeight: 350.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Image.asset(
-                      "assets/anudeep.png",
-                      width: screenWidth / 2,
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Hi,\nI am Anudeep\nA Flutter Developer",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.darkText,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text("Get in touch"),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            if (constraints.maxWidth >= kMinDesktop)
+              const MainDesktop()
+            else
+              const MainMobile(),
             Container(
               height: 500,
               width: double.maxFinite,
